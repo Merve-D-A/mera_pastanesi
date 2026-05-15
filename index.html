@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mera Pastanesi · Geleneksel Lezzetler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --clay: #D48B6A;
+      --clay-dark: #B5653E;
+      --clay-light: #E8A888;
+      --cream: #2A1F1A;
+      --cream-light: #1E1511;
+      --gold: #D4A853;
+      --gold-light: #E8C97A;
+      --espresso: #F5E6D3;
+      --espresso-soft: #C4B5A6;
+      --olive: #8A9A5B;
+      --sage: #5A6A4B;
+      --surface: #251B16;
+      --surface-hover: #30241E;
+      --border: rgba(212, 139, 106, 0.1);
+      --radius: 24px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-light);
+      color: var(--espresso);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::selection {
+      background: rgba(212, 139, 106, 0.4);
+      color: var(--espresso);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--cream-light);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--clay-dark);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--clay);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Grain Overlay ─── */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(30, 21, 17, 0.92);
+      backdrop-filter: blur(16px);
+      padding: 12px 0;
+      box-shadow: 0 1px 0 rgba(212, 139, 106, 0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--clay);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--espresso-soft);
+      transition: color 0.3s;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--clay);
+      transition: width 0.35s;
+    }
+
+    .nav-links a:hover {
+      color: var(--clay);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--clay);
+      color: #fff !important;
+      padding: 10px 24px;
+      border-radius: 100px;
+      text-transform: none !important;
+      letter-spacing: 0.04em !important;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--clay-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile nav */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--espresso);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 140px 0 80px;
+      background: linear-gradient(165deg, #120D0A 0%, var(--cream-light) 40%, var(--cream) 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -15%;
+      width: 70%;
+      height: 140%;
+      background: radial-gradient(ellipse at center, rgba(212, 139, 106, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--cream-light), transparent);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 139, 106, 0.1);
+      color: var(--clay);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+      border: 1px solid rgba(212, 139, 106, 0.2);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--clay);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      color: var(--espresso);
+      margin-bottom: 20px;
+      text-shadow: 0 2px 40px rgba(212, 139, 106, 0.06);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--clay);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--espresso-soft);
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.35s;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--clay-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(212, 139, 106, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--espresso);
+      border: 1.5px solid var(--espresso);
+    }
+
+    .btn-secondary:hover {
+      background: var(--espresso);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 1;
+    }
+
+    .hero-image-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, var(--gold-light) 0%, var(--clay-light) 40%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: pulse-glow 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(0.95); opacity: 0.15; }
+      50% { transform: scale(1.05); opacity: 0.3; }
+    }
+
+    .hero-img-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-img-card svg {
+      width: 70%;
+      height: 70%;
+    }
+
+    .floating-tag {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .floating-tag.t1 {
+      top: 5%;
+      right: -5%;
+      animation-delay: 0s;
+    }
+
+    .floating-tag.t2 {
+      bottom: 10%;
+      left: -5%;
+      animation-delay: 2s;
+    }
+
+    .floating-tag .icon {
+      width: 36px;
+      height: 36px;
+      background: var(--surface-hover);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ─── Section Shared ─── */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--clay);
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--clay);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--espresso);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--espresso-soft);
+      max-width: 560px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ─── About ─── */
+    #about {
+      background: var(--cream-light);
+      position: relative;
+    }
+
+    #about::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--cream), transparent);
+      pointer-events: none;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-image-box {
+      background: var(--cream);
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image-box svg {
+      width: 60%;
+      height: 60%;
+    }
+
+    .about-image-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      box-shadow: inset 0 0 0 1px rgba(212, 139, 106, 0.1);
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: -40px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card h3 {
+      font-size: 1.6rem;
+      color: var(--clay);
+      margin-bottom: 4px;
+    }
+
+    .stat-card p {
+      font-size: 0.8rem;
+      color: var(--espresso-soft);
+      font-weight: 400;
+    }
+
+    .about-text h2 {
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: var(--espresso-soft);
+      margin-bottom: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .about-signature {
+      margin-top: 24px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--clay);
+      font-size: 1.1rem;
+    }
+
+    /* ─── Products ─── */
+    #products {
+      background: var(--cream);
+    }
+
+    .products-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .products-header .section-label::before {
+      display: none;
+    }
+
+    .products-header .section-sub {
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.4s;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      border-color: rgba(212, 139, 106, 0.2);
+    }
+
+    .product-card-img {
+      aspect-ratio: 1;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card-img svg {
+      width: 65%;
+      height: 65%;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-card-img svg {
+      transform: scale(1.08) rotate(-2deg);
+    }
+
+    .product-card-img .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--clay);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .product-card-body {
+      padding: 24px;
+    }
+
+    .product-card-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .product-card-body p {
+      font-size: 0.9rem;
+      color: var(--espresso-soft);
+      font-weight: 300;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--clay);
+    }
+
+    .product-order {
+      background: none;
+      border: 1.5px solid var(--clay);
+      color: var(--clay);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .product-order:hover {
+      background: var(--clay);
+      color: #fff;
+    }
+
+    /* ─── Testimonials ─── */
+    #testimonials {
+      background: var(--cream-light);
+      position: relative;
+    }
+
+    #testimonials::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to bottom, var(--cream), transparent);
+      pointer-events: none;
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .testimonials-header .section-label::before {
+      display: none;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+      border-color: rgba(212, 139, 106, 0.2);
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-card blockquote {
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--espresso-soft);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--clay);
+      font-size: 1.1rem;
+    }
+
+    .testimonial-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-title {
+      font-size: 0.8rem;
+      color: var(--espresso-soft);
+      font-weight: 300;
+    }
+
+    /* ─── Contact ─── */
+    #contact {
+      background: #0A0705;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 70%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(212, 139, 106, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-info h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .contact-info .section-label {
+      color: var(--gold);
+    }
+
+    .contact-info .section-label::before {
+      background: var(--gold);
+    }
+
+    .contact-info p {
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: rgba(255,255,255,0.04);
+      border-radius: var(--radius);
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contact-form h3 {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.3s, background 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--clay);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .form-btn:hover {
+      background: var(--clay-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 139, 106, 0.25);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: #1A0E0A;
+      padding: 48px 0 24px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      color: #fff;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      color: #fff;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.3s;
+      font-weight: 300;
+    }
+
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-socials a {
+      color: rgba(255,255,255,0.4);
+      transition: color 0.3s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--gold);
+    }
+
+    /* ─── Scroll Animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .hero-image-wrapper {
+        max-width: 360px;
+      }
+
+      .floating-tag.t1 {
+        right: 0;
+      }
+      .floating-tag.t2 {
+        left: 0;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #120D0A;
+        border-left: 1px solid var(--border);
+        flex-direction: column;
+        padding: 100px 40px 40px;
+        gap: 28px;
+        transition: right 0.4s ease;
+        box-shadow: -16px 0 40px rgba(0, 0, 0, 0.4);
+        align-items: flex-start;
+      }
+
+      .nav-links a {
+        font-size: 1rem;
+        color: var(--espresso-soft);
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+        position: relative;
+        z-index: 101;
+      }
+
+      .nav-cta {
+        margin-top: 12px;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-stats {
+        margin-top: 0;
+        padding: 0;
+      }
+
+      .contact-form {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <!-- ═══ Navigation ═══ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">Mera<span>.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">Hikayemiz</a></li>
+        <li><a href="#products">Lezzetler</a></li>
+        <li><a href="#testimonials">Görüşler</a></li>
+        <li><a href="#contact" class="nav-cta">İletişim</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge reveal">50 yıllık gelenek</div>
+        <h1 class="reveal reveal-delay-1">Her dilimde <em>hikaye</em>, her lezzette <em>emek</em></h1>
+        <p class="reveal reveal-delay-2">1940'tan beri Mera Pastanesi'nde en taze malzemelerle, geleneksel tariflerle ve tutkuyla ürettiğimiz pastane işi ürünlerimizle sizleri ağırlıyoruz.</p>
+        <div class="hero-buttons reveal reveal-delay-3">
+          <a href="#products" class="btn btn-primary">Lezzetleri Keşfet →</a>
+          <a href="#contact" class="btn btn-secondary">Bize Ulaşın</a>
+        </div>
+      </div>
+      <div class="hero-image reveal reveal-delay-2">
+        <div class="hero-image-wrapper">
+          <div class="hero-image-bg"></div>
+          <div class="hero-img-card">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="90" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <path d="M100 40 C120 40 140 55 145 80 C150 105 140 130 120 140 C100 150 80 145 65 130 C50 115 45 90 55 70 C65 50 80 40 100 40Z" fill="#D4A853" opacity="0.25"/>
+              <path d="M85 75 C90 68 98 65 105 68 C112 71 115 78 113 85 C111 92 104 96 97 94 C90 92 87 85 88 78L85 75Z" fill="#D48B6A" opacity="0.5"/>
+              <path d="M115 95 C120 90 127 88 132 92 C137 96 138 103 134 108 C130 113 123 114 118 110 C113 106 112 99 115 95Z" fill="#D4A853" opacity="0.4"/>
+              <path d="M70 100 C65 95 63 88 67 83 C71 78 78 77 83 81 C88 85 89 92 85 97 C81 102 74 103 70 100Z" fill="#8A9A5B" opacity="0.3"/>
+              <path d="M100 130 L95 120 L100 122 L105 120Z" fill="#D48B6A" opacity="0.3"/>
+              <path d="M60 115 C55 115 52 112 52 108 C52 104 55 101 60 101 C65 101 68 104 68 108 C68 112 65 115 60 115Z" fill="#D4A853" opacity="0.25"/>
+              <path d="M140 115 C135 115 132 112 132 108 C132 104 135 101 140 101 C145 101 148 104 148 108 C148 112 145 115 140 115Z" fill="#D4A853" opacity="0.25"/>
+            </svg>
+          </div>
+          <div class="floating-tag t1">
+            <span class="icon">🌿</span>
+            <span>Taze Malzemeler</span>
+          </div>
+          <div class="floating-tag t2">
+            <span class="icon">🍯</span>
+            <span>El Yapımı Lezzetler</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ About ═══ -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-visual reveal">
+        <div class="about-image-box">
+          <svg viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="30" width="160" height="120" rx="8" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M50 70 C60 50 80 45 100 50 C120 55 130 70 120 85 C110 100 90 105 75 95 C60 85 55 75 50 70Z" fill="#D48B6A" opacity="0.15"/>
+            <path d="M55 75 L60 68 L65 75 L70 68 L75 75" stroke="#D48B6A" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.35"/>
+            <path d="M90 85 L95 78 L100 85 L105 78 L110 85" stroke="#D4A853" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+            <path d="M130 90 C135 80 140 78 145 82 C150 86 150 94 145 98 C140 102 135 100 132 95" stroke="#8A9A5B" stroke-width="2" fill="none" opacity="0.35"/>
+            <path d="M40 130 L160 130" stroke="#D48B6A" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+            <circle cx="100" cy="145" r="6" fill="#D4A853" opacity="0.2"/>
+            <circle cx="60" cy="145" r="4" fill="#D48B6A" opacity="0.2"/>
+            <circle cx="140" cy="145" r="4" fill="#D48B6A" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card"><h3>1940</h3><p>Kuruluş Yılı</p></div>
+          <div class="stat-card"><h3>50+</h3><p>Çeşit Ürün</p></div>
+          <div class="stat-card"><h3>3</h3><p>Şube</p></div>
+          <div class="stat-card"><h3>★4.9</h3><p>Müşteri Puanı</p></div>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <div class="section-label">Hikayemiz</div>
+        <h2 class="section-title">Üç kuşaktır aynı <br/>tutkuyla pişiriyoruz</h2>
+        <p>Mera Pastanesi, 1940 yılında İstanbul'un kalbinde bir esnaf dükkanı olarak açıldı. Dedemiz Hüseyin Usta'nın el emeği göz nuru tarifleri, bugün hâlâ aynı özenle yaşatılıyor.</p>
+        <p>Katkı maddesi yok, özen var. Makine değil, usta eli var. Her bir ürünümüzde Anadolu'nun bereketini, geleneksel pastane kültürünün inceliğini bulacaksınız.</p>
+        <p class="about-signature">"Lezzet, aceleye gelmez." — Hüseyin Usta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Products ═══ -->
+  <section id="products">
+    <div class="container">
+      <div class="products-header">
+        <div class="section-label reveal">Lezzetler</div>
+        <h2 class="section-title reveal reveal-delay-1">Pastane işi <br/>özel ürünlerimiz</h2>
+        <p class="section-sub reveal reveal-delay-2">Her biri ustalıkla hazırlanan, en taze malzemelerle ürettiğimiz ürün çeşitlerimiz.</p>
+      </div>
+      <div class="products-grid">
+        <div class="product-card reveal">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="15" width="70" height="55" rx="6" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <path d="M45 68 C45 60 50 55 60 55 C70 55 75 60 75 68" stroke="#D48B6A" stroke-width="1.5" fill="none"/>
+              <circle cx="60" cy="42" r="8" fill="#D4A853" opacity="0.3"/>
+              <path d="M52 42 L68 42 M60 34 L60 50" stroke="#D4A853" stroke-width="2" stroke-linecap="round"/>
+              <path d="M35 45 L40 40 M85 45 L80 40" stroke="#D48B6A" stroke-width="1" opacity="0.3"/>
+            </svg>
+            <span class="badge">Çok Satan</span>
+          </div>
+          <div class="product-card-body">
+            <h3>Çikolatalı Kurabiye</h3>
+            <p>Belçika çikolatası ve taze tereyağı ile hazırlanan, ağızda dağılan nefis kurabiyeler.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺45</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="65" r="30" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <circle cx="60" cy="65" r="22" fill="#4A3428" stroke="#D4A853" stroke-width="1" stroke-dasharray="3 3"/>
+              <circle cx="60" cy="65" r="12" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1"/>
+              <circle cx="60" cy="65" r="5" fill="#D4A853"/>
+              <path d="M60 35 L60 42 M60 88 L60 95 M35 65 L42 65 M78 65 L85 65" stroke="#D48B6A" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+              <path d="M40 40 L45 45 M75 85 L80 90" stroke="#D48B6A" stroke-width="1" stroke-linecap="round" opacity="0.2"/>
+            </svg>
+            <span class="badge" style="background: var(--gold);">Klasik</span>
+          </div>
+          <div class="product-card-body">
+            <h3>Revani</h3>
+            <p>Geleneksel tarifimizle hazırlanan, şerbetli ve yumuşacık revani tatlısı.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺55</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="25" width="60" height="65" rx="8" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <rect x="38" y="33" width="44" height="35" rx="4" fill="#4A3428" stroke="#D4A853" stroke-width="1"/>
+              <circle cx="60" cy="50" r="6" fill="#D4A853" opacity="0.3"/>
+              <rect x="38" y="72" width="44" height="6" rx="2" fill="#D48B6A" opacity="0.15"/>
+              <path d="M35 30 L40 25 M85 30 L80 25" stroke="#D48B6A" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="badge" style="background: var(--olive);">Glutensiz</span>
+          </div>
+          <div class="product-card-body">
+            <h3>Bademli Kek</h3>
+            <p>Glutensiz un ve taze badem ile hazırlanan, hafif ve lezzetli kek dilimleri.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺60</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal reveal-delay-3">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40 70 L50 35 L70 35 L80 70Z" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <path d="M42 70 L48 45 L72 45 L78 70" fill="#4A3428" stroke="#D4A853" stroke-width="1"/>
+              <circle cx="60" cy="42" r="4" fill="#D48B6A" opacity="0.2"/>
+              <path d="M30 70 L90 70 L85 85 L35 85Z" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <rect x="45" y="72" width="30" height="8" rx="2" fill="#D4A853" opacity="0.3"/>
+              <path d="M55 20 L55 30 M65 20 L65 30" stroke="#D48B6A" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <h3>Üçgen Börek</h3>
+            <p>Çıtır çıtır hamuru ve nefis peynirli harcıyla geleneksel üçgen börek.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺35</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="35" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <circle cx="60" cy="60" r="28" fill="#4A3428" stroke="#D4A853" stroke-width="1" stroke-dasharray="2 3"/>
+              <path d="M60 35 L60 40 M60 80 L60 85 M35 60 L40 60 M80 60 L85 60" stroke="#D48B6A" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M60 50 C65 48 70 50 72 55 C74 60 72 65 68 68" stroke="#D4A853" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="55" cy="55" r="3" fill="#D48B6A" opacity="0.2"/>
+              <circle cx="65" cy="65" r="2" fill="#D4A853" opacity="0.25"/>
+            </svg>
+            <span class="badge">Yeni</span>
+          </div>
+          <div class="product-card-body">
+            <h3>Portakallı Kek</h3>
+            <p>Mevsim portakallarıyla hazırlanan, taze ve ferah bir lezzet.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺50</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-card-img">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="35" width="70" height="55" rx="10" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <rect x="32" y="42" width="20" height="20" rx="3" fill="#D4A853" opacity="0.2" stroke="#D4A853" stroke-width="0.5"/>
+              <rect x="57" y="42" width="30" height="20" rx="3" fill="#8A9A5B" opacity="0.15" stroke="#8A9A5B" stroke-width="0.5"/>
+              <rect x="32" y="65" width="56" height="18" rx="3" fill="#D48B6A" opacity="0.1"/>
+              <path d="M35 35 L40 25 L80 25 L85 35" fill="#3D2B1F" stroke="#D48B6A" stroke-width="1.5"/>
+              <circle cx="60" cy="25" r="3" fill="#D4A853" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <h3>Karışık Baklava</h3>
+            <p>Antep fıstıklı ve cevizli, geleneksel yöntemlerle hazırlanan baklava çeşitleri.</p>
+            <div class="product-card-footer">
+              <span class="product-price">₺120</span>
+              <button class="product-order">Sipariş Ver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Testimonials ═══ -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label reveal">Görüşler</div>
+        <h2 class="section-title reveal reveal-delay-1">Müşterilerimiz <br/>ne diyor?</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"İstanbul'daki en iyi pastanelerden biri. Çikolatalı kurabiyeleri mutlaka denemelisiniz. Her sabah taze taze çıkıyor."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Ayşe K.</div>
+              <div class="testimonial-title">Kadıköy · 15 yıllık müşteri</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"Hüseyin Usta'nın revanisi yok artık gerisi. Çocukluğumun lezzetini burada buldum. Kesinlikle tavsiye ederim."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-name">Mehmet T.</div>
+              <div class="testimonial-title">Nişantaşı · 8 yıllık müşteri</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"Glutensiz ürünleri harika! Bademli kek o kadar lezzetli ki glutensiz olduğunu unutuyorsunuz. Hijyen ve kalite mükemmel."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">Z</div>
+            <div>
+              <div class="testimonial-name">Zeynep A.</div>
+              <div class="testimonial-title">Beşiktaş · 3 yıllık müşteri</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Contact ═══ -->
+  <section id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-label">İletişim</div>
+        <h2 class="section-title">Bize ulaşın</h2>
+        <p>İster sipariş vermek ister sadece merhaba demek için uğrayın. Sizi görmek bizi mutlu eder.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <strong>Adres</strong><br/>
+              Bağdat Caddesi No:142, Kadıköy / İstanbul
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div>
+              <strong>Telefon</strong><br/>
+              +90 (216) 414 10 10
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">⏰</div>
+            <div>
+              <strong>Çalışma Saatleri</strong><br/>
+              Hafta içi 08:00 – 20:00 · Cumartesi 09:00 – 19:00<br/>
+              Pazar 10:00 – 18:00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-1">
+        <h3>Sipariş ve iletişim formu</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Adınız Soyadınız</label>
+            <input type="text" id="name" placeholder="Adınız ve soyadınız" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta Adresiniz</label>
+            <input type="email" id="email" placeholder="ornek@posta.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon Numaranız</label>
+            <input type="tel" id="phone" placeholder="0 (5__) ___ __ __" />
+          </div>
+          <div class="form-group">
+            <label for="message">Mesajınız</label>
+            <textarea id="message" placeholder="Siparişiniz veya mesajınız..." required></textarea>
+          </div>
+          <button type="submit" class="form-btn">Mesajı Gönder →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">Mera<span>.</span></a>
+          <p>1940'tan bugüne, geleneksel pastane kültürünün en güzel örneklerini sunuyoruz. Her ürünümüzde emek, özen ve lezzet var.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Menü</h4>
+          <ul>
+            <li><a href="#about">Hikayemiz</a></li>
+            <li><a href="#products">Lezzetler</a></li>
+            <li><a href="#testimonials">Görüşler</a></li>
+            <li><a href="#contact">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ürünler</h4>
+          <ul>
+            <li><a href="#">Kurabiye</a></li>
+            <li><a href="#">Pastalar</a></li>
+            <li><a href="#">Börekler</a></li>
+            <li><a href="#">Şerbetliler</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Destek</h4>
+          <ul>
+            <li><a href="#">Sık Sorulanlar</a></li>
+            <li><a href="#">Teslimat Koşulları</a></li>
+            <li><a href="#">İade Politikası</a></li>
+            <li><a href="#">KVKK</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Mera Pastanesi. Tüm hakları saklıdır.</span>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Navbar scroll ───
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ─── Mobile menu ───
+    const toggle = document.getElementById('menuToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      links.classList.toggle('open');
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+      });
+    });
+
+    // ─── Scroll reveal ───
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── Sipariş Butonları ───
+    document.querySelectorAll('.product-order').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const product = btn.closest('.product-card');
+        const name = product.querySelector('h3').textContent;
+        const msg = document.getElementById('message');
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          msg.value = `${name} sipariş vermek istiyorum.`;
+          msg.focus();
+        }, 800);
+      });
+    });
+
+    // ─── Form ───
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-btn');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Gönderildi!';
+      btn.style.background = 'var(--olive)';
+      this.reset();
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
